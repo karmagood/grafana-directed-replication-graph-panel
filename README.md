@@ -1,4 +1,5 @@
-# grafana-directed-replication-graph-panel
+# Grafana directed graph panel
+#### _grafana-directed-replication-graph-panel_
 ![alt text](src/images/demo.png "Demo")
   
 
