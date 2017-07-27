@@ -1,6 +1,6 @@
 # grafana-directed-replication-graph-panel
 ![alt text](src/images/demo.png "Demo")
-Grafana panel plugin to create directed graph based on queries data.
+  Grafana panel plugin to create directed graph based on queries data.
 Based on:
 + [vis](http://visjs.org/) 
 + [angular-visjs](https://github.com/visjs/angular-visjs)
