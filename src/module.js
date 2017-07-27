@@ -47,14 +47,15 @@ export class GraphCtrl extends MetricsPanelCtrl {
                 randomSeed: 528861
             }
         };
-
+        $scope.data = data;
+        $scope.options = options;
     }
 
 
 
 GraphCtrl.templateUrl = 'module.html';
 
-    angular.module('grafana.directives')
+angular.module('grafana.directives')
     .directive('visNetwork', function() {
         return {
             restrict: 'EA',
@@ -143,8 +144,6 @@ angular.module('grafana.services')
             return new DataSet(data, options);
         };
     })
-
-
 
 export {
     GraphCtrl as PanelCtrl
