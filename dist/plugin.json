@@ -1,0 +1,21 @@
+{
+  "type": "panel",
+  "name": "DirectedGraph",
+  "id": "grafana-directed-graph-panel",
+
+  "info": {
+    "description": "Directed graph panel for grafana",
+    "author": {
+      "name": "Vladyslav Velychko",
+      "url": "http://quintagroup.org"
+    },
+    "keywords": ["graph", "directed","replication"],
+    "version": "0.1.0",
+    "updated": "2017-06-26"
+  },
+
+  "dependencies": {
+    "grafanaVersion": "4.x.x",
+    "plugins": [ ]
+  }
+}
