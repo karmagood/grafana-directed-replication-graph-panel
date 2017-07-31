@@ -4,7 +4,8 @@ import {
 } from 'app/plugins/sdk';
 import angular from 'angular';
 import {
-    DataSet, Network
+    DataSet,
+    Network
 } from './external/vis.min';
 
 var nodes = [];
@@ -56,7 +57,7 @@ export class GraphCtrl extends MetricsPanelCtrl {
             label: ""
         };
         var data_node = {};
-        console.log(this.series);
+
         for (var i = 0; i < this.series.length; i++) {
             data_edge = {
                 label: ""
@@ -77,23 +78,23 @@ export class GraphCtrl extends MetricsPanelCtrl {
                     nodes.update(data_node);
                 }
             }
-            console.log(edges);
+
             if (this.series[i].target.indexOf("=") != -1) {
                 if (this.series[i].target.indexOf("*") != -1) {
                     this.series[i].target = this.series[i].target.substring(1, this.series[i].target.length)
                     var subtraction = 0;
-                    console.log(this.series[i].datapoints[this.series[i].datapoints.length - 1][0]);    
-                     if (this.series[i].target.indexOf("-") != -1) {
+
+                    if (this.series[i].target.indexOf("-") != -1) {
                         subtraction = this.series[parseInt(this.series[i].target.split("-")[1], 10)].datapoints[this.series[i].datapoints.length - 1][0];
                         this.series[i].target = this.series[i].target.split("-")[0];
-                        console.log(subtraction);
+
                     }
-                    console.log(this.series[i].datapoints[this.series[i].datapoints.length - 1][0]-subtraction);
+
                     if (this.series[i].target.indexOf("+") != -1) {
                         this.series[i].target = this.series[i].target.substring(1, this.series[i].target.length);
-                        data_edge['label'] = edges.get(this.series[i].target).label + " / " + (this.series[i].datapoints[this.series[i].datapoints.length - 1][0]-subtraction);
+                        data_edge['label'] = edges.get(this.series[i].target).label + " / " + (this.series[i].datapoints[this.series[i].datapoints.length - 1][0] - subtraction);
                     } else {
-                        data_edge['label'] = this.series[i].datapoints[this.series[i].datapoints.length - 1][0]-subtraction;
+                        data_edge['label'] = this.series[i].datapoints[this.series[i].datapoints.length - 1][0] - subtraction;
                     }
                 }
                 data_edge['id'] = this.series[i].target;
