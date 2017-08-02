@@ -108,7 +108,10 @@ System.register(['app/core/config', 'app/plugins/sdk', 'angular', './external/vi
                         },
                         layout: {
                             randomSeed: 528861
-                        }
+                        },
+                        autoResize: true,
+                        height: '100%',
+                        width: '100%'
                     };
                     $scope.data = data;
                     $scope.options = options;
@@ -123,59 +126,63 @@ System.register(['app/core/config', 'app/plugins/sdk', 'angular', './external/vi
                             label: ""
                         };
                         var data_node = {};
-                        console.log(this.series);
+
                         for (var i = 0; i < this.series.length; i++) {
-                            data_edge = {
-                                label: ""
-                            };
-                            data_node = {};
-                            if (this.series[i].target.indexOf("#") != -1) {
-                                var target_id = this.series[i].target.substring(1, this.series[i].target.length);
-                                var query_value = this.series[i].datapoints[this.series[i].datapoints.length - 1][0];
-                                data_node = {
-                                    id: target_id,
-                                    value: query_value,
-                                    label: target_id + "\n" + query_value,
-                                    updated: 1
+                            try {
+                                data_edge = {
+                                    label: ""
                                 };
-                                if (!(target_id in nodes._data)) {
-                                    nodes.add(data_node);
-                                } else {
-                                    nodes.update(data_node);
-                                }
-                            }
-                            console.log(edges);
-                            if (this.series[i].target.indexOf("=") != -1) {
-                                if (this.series[i].target.indexOf("*") != -1) {
-                                    this.series[i].target = this.series[i].target.substring(1, this.series[i].target.length);
-                                    var subtraction = 0;
-                                    console.log(this.series[i].datapoints[this.series[i].datapoints.length - 1][0]);
-                                    if (this.series[i].target.indexOf("-") != -1) {
-                                        subtraction = this.series[parseInt(this.series[i].target.split("-")[1], 10)].datapoints[this.series[i].datapoints.length - 1][0];
-                                        this.series[i].target = this.series[i].target.split("-")[0];
-                                        console.log(subtraction);
-                                    }
-                                    console.log(this.series[i].datapoints[this.series[i].datapoints.length - 1][0] - subtraction);
-                                    if (this.series[i].target.indexOf("+") != -1) {
-                                        this.series[i].target = this.series[i].target.substring(1, this.series[i].target.length);
-                                        data_edge['label'] = edges.get(this.series[i].target).label + " / " + (this.series[i].datapoints[this.series[i].datapoints.length - 1][0] - subtraction);
+                                data_node = {};
+                                if (this.series[i].target.indexOf("#") != -1) {
+                                    var target_id = this.series[i].target.substring(1, this.series[i].target.length);
+                                    var query_value = this.series[i].datapoints[this.series[i].datapoints.length - 1][0];
+                                    data_node = {
+                                        id: target_id,
+                                        value: query_value,
+                                        label: target_id + "\n" + query_value,
+                                        updated: 1
+                                    };
+                                    if (!(target_id in nodes._data)) {
+                                        nodes.add(data_node);
                                     } else {
-                                        data_edge['label'] = this.series[i].datapoints[this.series[i].datapoints.length - 1][0] - subtraction;
+                                        nodes.update(data_node);
                                     }
                                 }
-                                data_edge['id'] = this.series[i].target;
-                                data_edge['from'] = this.series[i].target.split("=")[0];
-                                data_edge['color'] = {
-                                    color: '5a910a',
-                                    opacity: this.series[i].datapoints[this.series[i].datapoints.length - 1][0] / 100
-                                };
-                                data_edge['to'] = this.series[i].target.split("=")[1];
-                                data_edge['updated'] = 1;
-                                if (!(this.series[i].target in edges._data)) {
-                                    edges.add(data_edge);
-                                } else {
-                                    edges.update(data_edge);
+
+                                if (this.series[i].target.indexOf("=") != -1) {
+                                    if (this.series[i].target.indexOf("*") != -1) {
+                                        this.series[i].target = this.series[i].target.substring(1, this.series[i].target.length);
+                                        var subtraction = 0;
+
+                                        if (this.series[i].target.indexOf("-") != -1) {
+                                            subtraction = this.series[parseInt(this.series[i].target.split("-")[1], 10)].datapoints[this.series[i].datapoints.length - 1][0];
+                                            this.series[i].target = this.series[i].target.split("-")[0];
+                                        }
+
+                                        if (this.series[i].target.indexOf("+") != -1) {
+                                            this.series[i].target = this.series[i].target.substring(1, this.series[i].target.length);
+                                            data_edge['label'] = edges.get(this.series[i].target).label + " / " + (this.series[i].datapoints[this.series[i].datapoints.length - 1][0] - subtraction);
+                                        } else {
+                                            data_edge['label'] = this.series[i].datapoints[this.series[i].datapoints.length - 1][0] - subtraction;
+                                        }
+                                    }
+                                    data_edge['id'] = this.series[i].target;
+                                    data_edge['from'] = this.series[i].target.split("=")[0];
+                                    data_edge['color'] = {
+                                        color: '5a910a',
+                                        opacity: this.series[i].datapoints[this.series[i].datapoints.length - 1][0] / 100
+                                    };
+                                    data_edge['to'] = this.series[i].target.split("=")[1];
+                                    data_edge['updated'] = 1;
+                                    if (!(this.series[i].target in edges._data)) {
+                                        edges.add(data_edge);
+                                    } else {
+                                        edges.update(data_edge);
+                                    }
                                 }
+                            } catch (e) {
+                                console.log(e);
+                                continue;
                             }
                         }
                         for (var node in nodes._data) {

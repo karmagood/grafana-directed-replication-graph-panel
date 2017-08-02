@@ -8,6 +8,15 @@ Based on:
 + [vis](http://visjs.org/) 
 + [angular-visjs](https://github.com/visjs/angular-visjs)
 ## Quick guide 
+### Installation
+Clone plugin into grafana plugins folder and restart grafana server
+`git clone https://github.com/grafana/piechart-panel.git
+sudo service grafana-server restart`
+If the plugin is cloned to a directory that is not the default plugins directory then you need to edit your grafana.ini config file (Default location is at /etc/grafana/grafana.ini) and add this:
+`[plugin.piechart]
+path = /home/your/clone/dir/piechart-panel`
+
+### Configuration 
 - To create a node you just need to add `#` with `node-id` into your queries alias.
 Now you have the node with id which you typed after `#` in alias field. 
 Node size and label depends on data returned by the query you've added the alias to.
