@@ -181,7 +181,7 @@ System.register(['app/core/config', 'app/plugins/sdk', 'angular', './external/vi
                                     }
                                 }
                             } catch (e) {
-                                console.log(e);
+
                                 continue;
                             }
                         }
@@ -203,6 +203,9 @@ System.register(['app/core/config', 'app/plugins/sdk', 'angular', './external/vi
                                 edges._data[edge].updated = !edges._data[edge].updated;
                             }
                         }
+                        console.log(edges);
+                        console.log(nodes);
+                        console.log(this.panel.targets);
                     }
                 }, {
                     key: 'seriesHandler',
