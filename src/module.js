@@ -18,7 +18,7 @@ export class GraphCtrl extends MetricsPanelCtrl {
         this.timeSrv = $injector.get('timeSrv');
         this.templateSrv = $injector.get('templateSrv');
         this.events.on('data-received', this.onDataReceived.bind(this));
-
+        this.query_counter;
         nodes = new DataSet(nodes);
         edges = new DataSet(edges);
         var data = {
@@ -55,7 +55,24 @@ export class GraphCtrl extends MetricsPanelCtrl {
     }
 
     onDataReceived(dataList) {
+        this.query_counter = 0;
         this.series = dataList.map(this.seriesHandler.bind(this));
+        console.log(this.series);
+        var new_series = []
+        var series_counter = 0
+        for(var i = 0; i < this.panel.targets.length; i++){
+            if(this.series[series_counter].target == this.panel.targets[i].alias){
+                new_series[i] = this.series[series_counter]
+                if(series_counter+1 < this.series.length){
+                    series_counter++;
+                }
+                
+            } else {
+                new_series[i] = {target: "0", datapoints: [0]};
+            }
+        }
+        this.series = new_series;
+        console.log(this.series);
         var data_edge = {
             label: ""
         };
@@ -146,6 +163,8 @@ export class GraphCtrl extends MetricsPanelCtrl {
         console.log(this.panel.targets)
     }
     seriesHandler(seriesData) {
+        console.log(seriesData);
+
         var series = seriesData;
         return series;
     }
