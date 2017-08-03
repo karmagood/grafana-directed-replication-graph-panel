@@ -81,7 +81,6 @@ System.register(['app/core/config', 'app/plugins/sdk', 'angular', './external/vi
                     _this.timeSrv = $injector.get('timeSrv');
                     _this.templateSrv = $injector.get('templateSrv');
                     _this.events.on('data-received', _this.onDataReceived.bind(_this));
-                    _this.query_counter;
                     nodes = new DataSet(nodes);
                     edges = new DataSet(edges);
                     var data = {
@@ -121,9 +120,7 @@ System.register(['app/core/config', 'app/plugins/sdk', 'angular', './external/vi
                 _createClass(GraphCtrl, [{
                     key: 'onDataReceived',
                     value: function onDataReceived(dataList) {
-                        this.query_counter = 0;
                         this.series = dataList.map(this.seriesHandler.bind(this));
-                        console.log(this.series);
                         var new_series = [];
                         var series_counter = 0;
                         for (var i = 0; i < this.panel.targets.length; i++) {
@@ -137,12 +134,10 @@ System.register(['app/core/config', 'app/plugins/sdk', 'angular', './external/vi
                             }
                         }
                         this.series = new_series;
-                        console.log(this.series);
                         var data_edge = {
                             label: ""
                         };
                         var data_node = {};
-
                         for (var i = 0; i < this.series.length; i++) {
                             try {
                                 data_edge = {
@@ -219,14 +214,10 @@ System.register(['app/core/config', 'app/plugins/sdk', 'angular', './external/vi
                                 edges._data[edge].updated = !edges._data[edge].updated;
                             }
                         }
-                        console.log(edges);
-                        console.log(nodes);
-                        console.log(this.panel.targets);
                     }
                 }, {
                     key: 'seriesHandler',
                     value: function seriesHandler(seriesData) {
-                        console.log(seriesData);
 
                         var series = seriesData;
                         return series;

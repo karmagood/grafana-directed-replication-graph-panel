@@ -153,12 +153,10 @@ export class GraphCtrl extends MetricsPanelCtrl {
             }
 
         }
-        console.log(edges);
-        console.log(nodes);
-        console.log(this.panel.targets)
+
     }
     seriesHandler(seriesData) {
-        console.log(seriesData);
+
 
         var series = seriesData;
         return series;
