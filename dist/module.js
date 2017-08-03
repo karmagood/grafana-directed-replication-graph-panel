@@ -124,7 +124,7 @@ System.register(['app/core/config', 'app/plugins/sdk', 'angular', './external/vi
                         var new_series = [];
                         var series_counter = 0;
                         for (var i = 0; i < this.panel.targets.length; i++) {
-                            if (this.series[series_counter].target == this.panel.targets[i].alias) {
+                            if (this.series.length > 0 && this.series[series_counter].target == this.panel.targets[i].alias) {
                                 new_series[i] = this.series[series_counter];
                                 if (series_counter + 1 < this.series.length) {
                                     series_counter++;
