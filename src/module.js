@@ -18,7 +18,6 @@ export class GraphCtrl extends MetricsPanelCtrl {
         this.timeSrv = $injector.get('timeSrv');
         this.templateSrv = $injector.get('templateSrv');
         this.events.on('data-received', this.onDataReceived.bind(this));
-        this.query_counter;
         nodes = new DataSet(nodes);
         edges = new DataSet(edges);
         var data = {
@@ -55,9 +54,7 @@ export class GraphCtrl extends MetricsPanelCtrl {
     }
 
     onDataReceived(dataList) {
-        this.query_counter = 0;
         this.series = dataList.map(this.seriesHandler.bind(this));
-        console.log(this.series);
         var new_series = []
         var series_counter = 0
         for(var i = 0; i < this.panel.targets.length; i++){
@@ -72,12 +69,10 @@ export class GraphCtrl extends MetricsPanelCtrl {
             }
         }
         this.series = new_series;
-        console.log(this.series);
         var data_edge = {
             label: ""
         };
         var data_node = {};
-
         for (var i = 0; i < this.series.length; i++) {
             try {
                 data_edge = {
